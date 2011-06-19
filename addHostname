@@ -1,0 +1,48 @@
+#!/bin/bash
+# Adds a new Virtual host for local development
+
+if [ $# != 2 ]
+then 
+	echo "usage: $FUNCNAME sitename /path/to/dir"
+else
+	RIGHT_NOW=$(date +"%Y%m%d%H%M")
+	HOSTS_BACKUP_NAME="hosts$RIGHT_NOW"
+	APACHE_CONF_BACK="httpd.conf$RIGHT_NOW"
+	EKC_DIR="/USERS/eryancobham/Documents/scripts"
+	HOSTS="/etc/hosts"
+	APACHE_CONF="/Applications/MAMP/conf/apache/httpd.conf"
+
+	# make backup copies of the files if they exist, if not then create them
+	if [ -f $HOSTS ]
+	then 
+		cp $HOSTS $EKC_DIR/$HOSTS_BACKUP_NAME
+	else
+		touch $HOSTS
+	fi
+	if [ -f $APACHE_CONF ]
+	then
+		cp $APACHE_CONF $EKC_DIR/$APACHE_CONF_BACK
+	else
+		touch $APACHE_CONF
+	fi
+	
+	# append new entries to files
+	cat <<- _EOF_ >> $HOSTS
+
+		127.0.0.1	$1.local
+	_EOF_
+
+	cat <<- _EOF_ >> $APACHE_CONF
+
+		<VirtualHost *:80>
+		  DocumentRoot $2
+		  ServerName $1.local
+		  <Directory $2>
+		    Options Indexes FollowSymLinks
+		    AllowOverride All
+		    Order allow,deny
+		    Allow from all
+		 </Directory>
+		</VirtualHost>
+	_EOF_
+fi
