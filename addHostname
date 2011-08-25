@@ -8,20 +8,21 @@ else
 	RIGHT_NOW=$(date +"%Y%m%d%H%M")
 	HOSTS_BACKUP_NAME="hosts$RIGHT_NOW"
 	APACHE_CONF_BACK="httpd.conf$RIGHT_NOW"
-	EKC_DIR="/USERS/eryancobham/Documents/scripts"
+	BAK_DIR="~/Documents/ApacheBackups"
 	HOSTS="/etc/hosts"
 	APACHE_CONF="/etc/apache2/httpd.conf"
+	SITE_DIR="$(pwd)"
 
 	# make backup copies of the files if they exist, if not then create them
 	if [ -f $HOSTS ]
 	then 
-		cp $HOSTS $EKC_DIR/$HOSTS_BACKUP_NAME
+		cp $HOSTS $BAK_DIR/$HOSTS_BACKUP_NAME
 	else
 		touch $HOSTS
 	fi
 	if [ -f $APACHE_CONF ]
 	then
-		cp $APACHE_CONF $EKC_DIR/$APACHE_CONF_BACK
+		cp $APACHE_CONF $BAK_DIR/$APACHE_CONF_BACK
 	else
 		touch $APACHE_CONF
 	fi
