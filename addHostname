@@ -3,7 +3,7 @@
 
 if [ $# != 2 ]
 then 
-	echo "usage: $FUNCNAME sitename /path/to/dir"
+	echo "usage: $FUNCNAME sitename"
 else
 	RIGHT_NOW=$(date +"%Y%m%d%H%M")
 	HOSTS_BACKUP_NAME="hosts$RIGHT_NOW"
@@ -36,9 +36,9 @@ else
 	cat <<- _EOF_ >> $APACHE_CONF
 
 		<VirtualHost *:80>
-		  DocumentRoot $2
+		  DocumentRoot $SITE_DIR
 		  ServerName $1.local
-		  <Directory $2>
+		  <Directory $SITE_DIR>
 		    Options Indexes FollowSymLinks
 		    AllowOverride All
 		    Order allow,deny
