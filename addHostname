@@ -1,7 +1,7 @@
 #!/bin/bash
 # Adds a new Virtual host for local development
 
-if [ $# != 2 ]
+if [ $# != 1 ]
 then 
 	echo "usage: $FUNCNAME sitename"
 else
