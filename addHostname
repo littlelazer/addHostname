@@ -10,7 +10,7 @@ else
 	APACHE_CONF_BACK="httpd.conf$RIGHT_NOW"
 	EKC_DIR="/USERS/eryancobham/Documents/scripts"
 	HOSTS="/etc/hosts"
-	APACHE_CONF="/Applications/MAMP/conf/apache/httpd.conf"
+	APACHE_CONF="/etc/apache2/httpd.conf"
 
 	# make backup copies of the files if they exist, if not then create them
 	if [ -f $HOSTS ]
